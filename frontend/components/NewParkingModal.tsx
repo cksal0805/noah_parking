@@ -36,7 +36,7 @@ function NewParkingModal({navigation}: INewParkingModalProps) {
               onPress={() => setVisible(!visible)}
             >
               <Text style={styles.textStyle}>
-                <Icon name="form" size={30} color="#3143e8" />
+                <Icon name="close-outline" size={30} />
               </Text>
             </Pressable>
             <View style={[styles.mainViwe]}>
