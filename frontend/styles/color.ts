@@ -1,5 +1,5 @@
 export default {
-  GREY: '#9B9B9B',
+  GREY: '#cfcfcf',
   LIGHT_GREY: '#e9e9e9',
   DEEP_GREY: '#707070',
 
@@ -8,5 +8,5 @@ export default {
   DEEP_BLUE: '#1C1C3E',
 
   WHITE: '#ffffff',
-  BLACK: '#000000'
+  BLACK: '#000000',
 };
