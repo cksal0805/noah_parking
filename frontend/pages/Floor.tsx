@@ -17,7 +17,7 @@ function Floor() {
   const [selectedFloor, setSelectedFloor] = useState(0);
   const [details, setDetails] = useState('');
 
-  const {handleSubmitToFloor} = useContext(ParkingPositionContext);
+  const {handleSubmitByFloor} = useContext(ParkingPositionContext);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.floorWrapper}>
@@ -50,7 +50,7 @@ function Floor() {
           style={[styles.submitButton, globalStyles.deepBlueButton]}
           buttonTitle="지하로 등록"
           onPress={() =>
-            handleSubmitToFloor({
+            handleSubmitByFloor({
               floor: `B${selectedFloor + 1}`,
               details,
             })
@@ -60,7 +60,7 @@ function Floor() {
           style={[styles.submitButton, globalStyles.blueButton]}
           buttonTitle="지상으로 등록"
           onPress={() =>
-            handleSubmitToFloor({
+            handleSubmitByFloor({
               floor: `L${selectedFloor + 1}`,
               details,
             })
