@@ -5,7 +5,7 @@ export const getGeoLocation = async () => {
   if (Platform.OS === 'ios') {
    await Geolocation.requestAuthorization('whenInUse');
   }
-  return new Promise ((resolve) => {
+  return new Promise<any>((resolve) => {
     Geolocation.getCurrentPosition(
       resolve,
       error => {

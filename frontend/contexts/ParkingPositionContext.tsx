@@ -6,11 +6,15 @@ import {useNavigation} from '@react-navigation/native';
 interface IParkingPositionContextProps {
   children: JSX.Element;
 }
-interface IHandleSubmitToFloor {
+interface IHandleSubmitByFloor {
   floor: string;
   details: string;
 }
-export const ParkingPositionContext = createContext({});
+interface IHandleSubmitByPosition {
+  latitude: string;
+  longitude: string;
+}
+export const ParkingPositionContext = createContext<any>({});
 export function ParkingPositionContextProvider({
   children,
 }: IParkingPositionContextProps) {
@@ -21,7 +25,7 @@ export function ParkingPositionContextProvider({
     details: '',
   });
   const navigation = useNavigation();
-  const handleSubmitToFloor = ({floor, details}: IHandleSubmitToFloor) => {
+  const handleSubmitByFloor = ({floor, details}: IHandleSubmitByFloor) => {
     setPosition({
       type: 'floor',
       date: dayjs().format('YYYY-MM-DD HH:mm'),
@@ -30,8 +34,21 @@ export function ParkingPositionContextProvider({
     });
     navigation.goBack();
   };
+
+  const handleSubmitByPosition = ({
+    latitude,
+    longitude,
+  }: IHandleSubmitByPosition) => {
+    setPosition({
+      type: 'address',
+      date: dayjs().format('YYYY-MM-DD HH:mm'),
+      position: latitude,
+      details: longitude,
+    });
+  };
   return (
-    <ParkingPositionContext.Provider value={{position, handleSubmitToFloor}}>
+    <ParkingPositionContext.Provider
+      value={{position, handleSubmitByFloor, handleSubmitByPosition}}>
       {children}
     </ParkingPositionContext.Provider>
   );

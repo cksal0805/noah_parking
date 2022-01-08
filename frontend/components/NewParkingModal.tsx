@@ -1,15 +1,18 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import CustomButton from './CustomButton';
 import {Modal, Pressable, StyleSheet, Text, View} from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import globalStyles from '../styles/globalStyles';
+import {getGeoLocation} from '../utils/getGeoLocation';
+import { ParkingPositionContext } from '../contexts/ParkingPositionContext';
 
 interface INewParkingModalProps {
   navigation: any;
 }
 function NewParkingModal({navigation}: INewParkingModalProps) {
   const [visible, setVisible] = useState(false);
+  const {handleSubmitByPosition} = useContext(ParkingPositionContext);
   const handlePressNewParkingPositionModalOpen = () => {
     setVisible(true);
   };
@@ -17,6 +20,16 @@ function NewParkingModal({navigation}: INewParkingModalProps) {
     setVisible(false);
     navigation.navigate('Floor');
   };
+  const handlePressPositionButton = async() => {
+    try {
+      const location = await getGeoLocation();
+      const {latitude, longitude} = location.coords;
+      handleSubmitByPosition({latitude, longitude});
+    } catch(err) {
+      console.log(err);
+    }
+    setVisible(false);
+  }
   return (
     <>
       <CustomButton
@@ -41,7 +54,7 @@ function NewParkingModal({navigation}: INewParkingModalProps) {
               <CustomButton
                 buttonTitle="현재 위치로 등록"
                 style={[styles.button, globalStyles.lightBlueButton]}
-                onPress={handlePressFloorButton}
+                onPress={handlePressPositionButton}
               />
               <CustomButton
                 buttonTitle="층수로 등록"
